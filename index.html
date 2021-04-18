@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Driver</title>
+
+  <style>
+    .race {
+      background-color: antiquewhite;
+      border-bottom: 1px solid #000;
+      margin-bottom: 15px;
+    }
+    
+    .car {
+      width: 80px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="race">
+      <img src="./car.svg" alt="car" class="car">
+    </div>
+  </div>
+
+  <script>
+    /**
+     * 
+     *  ТУТ РАЗВЕРНУТЫЕ ОТВЕТЫ НА ВОПРОСЫ
+     *
+     */
+
+    // 
+    const car = document.querySelector(".car");
+
+    // 
+    let positionPercent = 0;
+
+    // 
+    let time = 0;
+
+    // 
+    const interval = 24;
+
+    //
+    const timer = setInterval(() => { 
+      //  
+      if(positionPercent >= 100) {
+        //
+        clearInterval(timer);
+        
+        //
+        alert(`Машина доехала за ${time} миллисекунд!`)
+      }
+      //
+      car.style.marginLeft = `${positionPercent}%`;
+      
+      //
+      positionPercent += Math.ceil(Math.random() * 3);
+      
+      //
+      time += interval;
+    }, interval)
+  
+  </script>
+</body>
+</html>
