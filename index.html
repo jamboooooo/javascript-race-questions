@@ -1,69 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Driver</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver</title>
 
-  <style>
-    .race {
-      background-color: antiquewhite;
-      border-bottom: 1px solid #000;
-      margin-bottom: 15px;
-    }
-    
-    .car {
-      width: 80px;
-    }
-  </style>
-</head>
-<body>
-  <div id="app">
-    <div class="race">
-      <img src="./car.svg" alt="car" class="car">
-    </div>
-  </div>
-
-  <script>
-    /**
-     * 
-     *  ТУТ РАЗВЕРНУТЫЕ ОТВЕТЫ НА ВОПРОСЫ
-     *
-     */
-
-    // 
-    const car = document.querySelector(".car");
-
-    // 
-    let positionPercent = 0;
-
-    // 
-    let time = 0;
-
-    // 
-    const interval = 24;
-
-    //
-    const timer = setInterval(() => { 
-      //  
-      if(positionPercent >= 100) {
-        //
-        clearInterval(timer);
+    <style>
+        .race {
+            background-color: antiquewhite;
+            border-bottom: 1px solid #000;
+            margin-bottom: 15px;
+            width: calc(100% - 80px);
+        }
         
-        //
-        alert(`Машина доехала за ${time} миллисекунд!`)
-      }
-      //
-      car.style.marginLeft = `${positionPercent}%`;
-      
-      //
-      positionPercent += Math.ceil(Math.random() * 3);
-      
-      //
-      time += interval;
-    }, interval)
-  
-  </script>
+        .car {
+            width: 80px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="race">
+            <img src="./car.svg" alt="car" class="car">
+        </div>
+        <div class="race">
+            <img src="./car.svg" alt="car" class="car">
+        </div>
+    </div>
+
+    <script>
+        /*                                        
+        ТУТ РАЗВЕРНУТЫЕ ОТВЕТЫ НА ВОПРОСЫ
+        1. math.random - выдает рандомное значение в диапазоне от 0  до 1
+        2. он бывает полезен в случаях где например нкжно сдлеать рандомный выбор из массива или в подобных задачах
+        3. так как в большинстве случаев нужно число больше чем 0 и 1, результат math.random умножается на конечное число диапазона чтобы получить рандомное число не превышающее диапазон
+        4. math.ceil округляет переданное число в большую сторону. результатом Math.random является вещественное число, округляя его результат мы получаем целое число
+
+        интервал использовался чтобы постепенно перемещать машину слева направо, если бы использовался таймер то машина бы сдвинулась лишь раз
+        если вторым аргументом передать 0 интервал будет срабатывать моментально
+        чтобы машина ехала быстрее число нужно уменьшать, так как чем быстрее срабатывает интервал, тем быстрее двигается машина
+        */
+        const car = document.querySelectorAll(".car"); // в переменной car сохраняется первый попавшийся элемент с селектором car
+
+        let positionPercent = 0; // начальная позиция машины
+        let positionPercent2 = 0;
+        let time = 0; // время за которое машина прошла путь
+
+        const interval = 24; // время действия интервала
+
+        const timer = setInterval(() => { // объявление функции интервала  
+                if (positionPercent < 100 || positionPercent2 < 100) { // условие при котором позиция машины будет больше 100 возврашает true
+                    car[0].style.marginLeft = `${positionPercent}%`; // возвращает машину на начальную позицию
+                    if (positionPercent < 100) positionPercent += Math.ceil(Math.random() * 3); // прибавляет рандомное значение позиции машины и создается ошущение движения
+                    car[1].style.marginLeft = `${positionPercent2}%`; // возвращает машину на начальную позицию
+                    if (positionPercent2 < 100) positionPercent2 += Math.ceil(Math.random() * 4);
+                    time += interval; // расчет времени за которое машина пройдет полный путь
+                } else {
+                    clearInterval(timer); // останавливает работу интервала
+                    alert(`Машина доехала за ${time/1000} секунд!`) // сообщение о том что за сколько времени машина прошла путь
+                }
+            }, interval) // время работы интервала
+        const timer2 = timer
+    </script>
 </body>
+
 </html>
